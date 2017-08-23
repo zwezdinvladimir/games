@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+	<title>Виселица</title>
+</head>
+
+
+<body>
+	<h1 id="heading"></h1>
+	<img id="map" width=400 height=400 src="http://nostarch.com/images/treasuremap.png">
+	<p id="disttance">  
+    <script src="https://code.jquery.com/jquery-2.1.0.js"></script>
+	<script>
+    alert("Найди клад");
+	var start = confirm("Hачать игру?");
+	if (start) {
+		start = true
+	} else {
+		start = confirm("Вы уверены что хотите выйти?");
+		start = !start;
+	}
+	if (start) {
+        function getRandomNumber (size) {
+            return Math.floor(Math.random() * size);
+        };
+        var width = 400;
+        var height = 400;
+        var target = {
+            x:getRandomNumber(width),
+            y: getRandomNumber(height)
+        }
+        
+        function getDistanceHint (distance) {
+            if (distance < 10) {
+                return "Обожжешься!";
+            } else if (distance < 20) {
+                return "Очень горячо";
+            } else if (distance < 40) {
+                return "Горячо";
+            } else if (distance < 80) {
+                return "Тепло";
+            } else if (distance < 160) {
+                return "Холодно";
+            } else if (distance < 320) {
+                return "Очень холодно";
+            } else {
+                return "Замерзнешь";
+            }
+        }
+        function getDistance(event, target) {
+            var diffX = event.offsetX - target.x;
+            var diffY = event.offsetY - target.y;
+            return Math.sqrt((diffX * diffX) + (diffY * diffY));
+        }
+        var clicks = 0;
+        $("#map").click(function(event) {
+        var distance = getDistance(event, target);
+        var distanceHint = getDistanceHint(distance);
+        $("#distance").text(distanceHint);
+        if (distance < 8) {
+            alert("Клад найден! Сделано кликов: " + clicks)
+        } 
+        clicks++;
+        }) 
+            
+    } else {
+		alert ("Ну что нажимай крестик вверху^ ^ ^");
+	}
+	</script>
+</body> 
+</html>
