@@ -53,22 +53,37 @@
         this.col = col;
         this.row = row;
     }
-    var sampleBlock = new Block(3, 4);
     Block.prototype.drawSquare = function (color) {
         var x = this.col * blockSize;
         var y = this.row * blockSize;
         ctx.fillStyle = color;
         ctx.fillRect(x, y, blockSize, blockSize)
     }
-    sampleBlock.drawSquare("LightBlue");
     Block.prototype.drawCircle = function (color) {
         var centerX = this.col * blockSize + blockSize / 2;
         var centerY = this.row * blockSize + blockSize / 2;
         ctx.fillStyle = color;
         circle(centerX, centerY, blockSize / 2, true);
     }
-    var sampleCircle = new Block(4, 3);
-    sampleCircle.drawCircle("LightGreen");
+    Block.prototype.equal = function(otherBlock) {
+        return this.col === otherBlock.col && this.row === otherBlock.row;
+    }
+    function snake  () {
+        this.segments = [
+            new Block(7, 5),
+            new Block(6, 5),
+            new Block(5, 5)
+        ];
+        this.direction = "right";
+        this.nextDirection = "right";
+    }
+    snake.prototype.draw = function() {
+        for(var i = 0; i < this.segments.length; i++) {
+            this.segments[i].drawSquare("Blue")
+        }
+    }
+    var Snake = new snake();
+    Snake.draw();
     drawBorder();
 	</script>
 	</body> 
